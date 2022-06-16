@@ -5,7 +5,8 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.13874873864783047" />
         <entry key="app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/activity_detail.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_feed.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1779935275080906" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.1" />

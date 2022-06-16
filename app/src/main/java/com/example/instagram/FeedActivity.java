@@ -3,6 +3,7 @@ package com.example.instagram;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +20,9 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
     public static final String TAG ="FeedActivity";
+    private SwipeRefreshLayout swipeContainer;
+
+
 
 
     private RecyclerView rvPosts;
@@ -42,7 +46,36 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts.setLayoutManager(new LinearLayoutManager(this));
         // query posts from Parstagram
         queryPosts();
+        
+        
+        // Lookup the swipe container view
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        // Setup refresh listener which triggers new data loading
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // Your code to refresh the list here.
+                // Make sure you call swipeContainer.setRefreshing(false)
+                // once the network request has completed successfully.
+                fetchFeeds();
+                queryPosts();
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        
+        
     }
+
+    private void fetchFeeds() {
+        adapter.clear();
+        adapter.addAll(allPosts);
+        swipeContainer.setRefreshing(false);
+    }
+
 
     public void onPostFeed(View v){
         Intent intent = new Intent(this, MainActivity.class);
@@ -79,5 +112,6 @@ public class FeedActivity extends AppCompatActivity {
             }
         });
     }
+
 
 }

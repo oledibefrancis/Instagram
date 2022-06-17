@@ -15,6 +15,5 @@
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-
-        tools:srcCompat="@drawable/instagram_icon" />
+        app:srcCompat="@drawable/instagram_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

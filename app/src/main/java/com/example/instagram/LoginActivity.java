@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +22,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button etLoginButton;
+    private Button etSignUp;
+
+
 
 
     @Override
@@ -34,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
 
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        etSignUp = findViewById(R.id.etSignUp);
         etLoginButton = findViewById(R.id.etLoginButton);
 
         etLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +50,38 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, password);
             }
         });
+
+        etSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Create new parse user object:
+                ParseUser user = new ParseUser();
+                // Set details:
+                String userName = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                user.setUsername(userName);
+                user.setPassword(password);
+                // Invoke signUpInBackground:
+                user.signUpInBackground(new SignUpCallback() {
+                    @Override
+                    public void done(ParseException e) {
+                        if (e == null) {
+                            Log.i(TAG, "onClick signUp button");
+                            loginUser(userName, password);
+                            Toast.makeText(getApplicationContext(),"Signed up sucessfully" , Toast.LENGTH_SHORT);
+
+                        }
+                        else {
+                            // Sign up did not succeeed.
+                            Toast.makeText(getApplicationContext(),"Error Signing Up" , Toast.LENGTH_SHORT);
+                        }
+
+                    }
+                }
+                );
+            }
+        });
+
 
 
 

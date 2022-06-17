@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         if(item.getItemId() == R.id.btnLogout){
             logoutUser();
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     private void logoutUser() {
@@ -116,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
         ParseUser currentUser = ParseUser.getCurrentUser();
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
+        Toast.makeText(this, "Logged Out", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
 }

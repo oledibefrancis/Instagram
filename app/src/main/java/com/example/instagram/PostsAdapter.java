@@ -25,6 +25,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
     Context context;
     List<Post> posts;
 
+
     //Pass in the context and the list of posts
     public PostsAdapter(Context context, List<Post> posts) {
         this.context = context;
@@ -56,7 +57,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         TextView tvUsername;
         ImageView ivImage;
         TextView tvDescription;
-        private Context context;
+        Context context;
+        TextView tvCreatedAt;
+
 
 
         public  ViewHolder(@NonNull View itemView){
@@ -65,14 +68,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
             ivImage = itemView.findViewById(R.id.ivImage);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             this.context = itemView.getContext();
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             // Attach a click listener to the entire row view
             itemView.setOnClickListener(this);
+
         }
 
         public void bind(Post post) {
 
             tvUsername.setText(post.getUser().getUsername());
             tvDescription.setText(post.getDescription());
+            post.getCreatedAt();
+            tvCreatedAt.setText(post.calculateTimeAgo());
+
             ParseFile image = post.getImage();
             if (image != null){
                 Glide.with(context).load(image.getUrl()).into(ivImage);
@@ -93,13 +101,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>{
         }
         }
 
-
-//    int postion = getAdapterPosition();
-//            if (postion != RecyclerView.NO_POSITION){
-//                    Tweet tweet = tweets.get(postion);
-//                    Intent intent = new Intent(context, TweetDetail.class);
-//        intent.putExtra(Tweet.class.getSimpleName(), Parcels.wrap(tweet));
-//        context.startActivity(intent);
 
     // Clean all elements of the recycler
     public void clear() {

@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -48,6 +49,7 @@ public class ComposeFragment extends Fragment {
     Button btnCaptureImage;
     Button btnSubmit;
     ImageView ivPostImage;
+    MenuItem miActionProgress;
     public String photoFileName = "photo.jpg";
     private File photoFile;
     public static final String TAG ="ComposeFragment";
@@ -106,6 +108,8 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
+        miActionProgress = view.findViewById(R.id.miActionProgress);
+
 
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +122,8 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description,currentUser,photoFile);
+                showProgressBar();
+
             }
 
 
@@ -139,6 +145,7 @@ public class ComposeFragment extends Fragment {
                         }
                         etDescription.setText("");
                         ivPostImage.setImageResource(0);
+                        hideProgressBar();
                     }
                 });
             }
@@ -230,5 +237,12 @@ public class ComposeFragment extends Fragment {
             }
         });
 
+    }
+    public void showProgressBar() {
+        miActionProgress.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        miActionProgress.setVisible(false);
     }
 }

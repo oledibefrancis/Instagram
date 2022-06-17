@@ -15,7 +15,6 @@ public class ProfileFragment extends FeedsFragment{
 
     @Override
     protected void queryPosts() {
-        super.queryPosts();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.include(Post.KEY_USER);

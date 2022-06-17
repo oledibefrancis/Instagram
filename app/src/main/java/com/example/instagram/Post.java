@@ -20,14 +20,14 @@ public class Post extends ParseObject {
 
     public Post(){}//empty constructor required for parceler
 
-    public static String calculateTimeAgo(Date createdAt) {
+    public String calculateTimeAgo() {
             int SECOND_MILLIS = 1000;
             int MINUTE_MILLIS = 60 * SECOND_MILLIS;
             int HOUR_MILLIS = 60 * MINUTE_MILLIS;
             int DAY_MILLIS = 24 * HOUR_MILLIS;
 
             try {
-                createdAt.getTime();
+                Date createdAt = getCreatedAt();
                 long time = createdAt.getTime();
                 long now = System.currentTimeMillis();
 

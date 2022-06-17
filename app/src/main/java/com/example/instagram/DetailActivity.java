@@ -23,7 +23,6 @@ public class DetailActivity extends AppCompatActivity {
 
     Post post;
     Context context;
-    Date createdAt;
 
 
     @Override
@@ -40,15 +39,9 @@ public class DetailActivity extends AppCompatActivity {
         post = getIntent().getParcelableExtra("posts");
         Log.d("DetailActivity", String.format("Showing details for '%s'", post.getUser()));
 
-        createdAt = post.getCreatedAt();
 
 
 
-        post.getCreatedAt();
-        String timeAgo = Post.calculateTimeAgo(createdAt);
-
-
-        tvCreatedAt.setText(timeAgo);
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
         Glide.with(this).load(post.getImage().getUrl()).into(ivImage);

@@ -17,6 +17,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,13 +103,21 @@ public class ComposeFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(@NonNull Menu menu) {
+
+        miActionProgress = menu.findItem(R.id.miActionProgress);
+
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         etDescription = view.findViewById(R.id.etDescription);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
         ivPostImage = view.findViewById(R.id.ivPostImage);
-        miActionProgress = view.findViewById(R.id.miActionProgress);
+
 
 
 
@@ -122,7 +131,7 @@ public class ComposeFragment extends Fragment {
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 savePost(description,currentUser,photoFile);
-                showProgressBar();
+                //showProgressBar();
 
             }
 
@@ -145,7 +154,7 @@ public class ComposeFragment extends Fragment {
                         }
                         etDescription.setText("");
                         ivPostImage.setImageResource(0);
-                        hideProgressBar();
+                        //hideProgressBar();
                     }
                 });
             }
@@ -163,21 +172,15 @@ public class ComposeFragment extends Fragment {
     }
 
     private void launchCamera() {
-            // create Intent to take a picture and return control to the calling application
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Create a File reference for future access
+
             photoFile = getPhotoFileUri(photoFileName);
 
-            // wrap File object into a content provider
-            // required for API >= 24
-            // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+
             Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
 
-            // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-            // So as long as the result is not null, it's safe to use the intent.
             if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-                // Start the image capture intent to take photo
                 startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
             }
     }
@@ -204,9 +207,7 @@ public class ComposeFragment extends Fragment {
     }
 
     private File getPhotoFileUri(String photoFileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
+
         File mediaStorageDir = new File(getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
         // Create the storage directory if it does not exist
@@ -245,4 +246,6 @@ public class ComposeFragment extends Fragment {
     public void hideProgressBar() {
         miActionProgress.setVisible(false);
     }
+
+
 }

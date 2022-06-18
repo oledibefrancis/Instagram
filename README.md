@@ -27,7 +27,7 @@ The following *stretch* features are implemented:
 - [x] Feed Tab (to view all posts from all users)
 - [x] Capture Tab (to make a new post using the Camera and Photo Gallery)
 - [x] Profile Tab (to view only the current user's posts, in a grid)
-- [ ] Show the username and creation time for each post
+- [x] Show the username and creation time for each post
 - User Profiles:
 - [ ] Allow the logged in user to add a profile photo
 - [ ] Display the profile photo with each post
@@ -43,8 +43,7 @@ The following *additional* features are implemented:
 
 Please list two areas of the assignment you'd like to *discuss further with your peers* during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. How to implement the infinite Pagation
 
 ## Video Walkthrough
 
